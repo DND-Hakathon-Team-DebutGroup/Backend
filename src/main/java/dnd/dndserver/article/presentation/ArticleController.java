@@ -33,15 +33,14 @@ public class ArticleController {
                 );
     }
 
-    @PostMapping(consumes = {"multipart/form-data"})
+    @PostMapping
     public ResponseEntity<ResponseHandler<SaveArticleResponse>> save(
-            @RequestPart("request") SaveArticleRequest request,
-            @RequestPart("file") MultipartFile file
+            @RequestBody SaveArticleRequest request
     ) throws IOException {
         return ResponseEntity.ok()
                 .body(ResponseHandler.<SaveArticleResponse>builder()
                         .statusCode(HttpStatus.OK)
-                        .data(articleService.save(request, file))
+                        .data(articleService.save(request))
                         .build()
                 );
     }
