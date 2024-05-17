@@ -2,7 +2,7 @@ package dnd.dndserver.article.presentation;
 
 import dnd.dndserver.article.application.ArticleService;
 import dnd.dndserver.article.dto.request.FindArticleRequest;
-import dnd.dndserver.article.dto.response.FindArticleResponse;
+import dnd.dndserver.article.dto.response.FindAllArticleResponse;
 import dnd.dndserver.global.handler.ResponseHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,11 +20,11 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping
-    public ResponseEntity<ResponseHandler<FindArticleResponse>> find(
+    public ResponseEntity<ResponseHandler<FindAllArticleResponse>> find(
             @ModelAttribute FindArticleRequest request
     ) {
         return ResponseEntity.ok()
-                .body(ResponseHandler.<FindArticleResponse>builder()
+                .body(ResponseHandler.<FindAllArticleResponse>builder()
                         .statusCode(HttpStatus.OK)
                         .data(articleService.find(request))
                         .build()
