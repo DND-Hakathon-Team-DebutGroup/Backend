@@ -1,7 +1,7 @@
 package dnd.dndserver.article.domain;
 
+import dnd.dndserver.file.ImageFile;
 import dnd.dndserver.global.entity.BaseTimeEntity;
-import dnd.dndserver.user.ImageFile;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,11 +23,13 @@ public class Article extends BaseTimeEntity {
     @Column
     private String district;
     @Column
-    private String temperature;
+    private String town;
     @Column
-    private String wind;
+    private int temperature;
     @Column
-    private String humidity;
+    private int precipitation;
+    @Column
+    private int sunshine;
     @Column
     private String content;
     @Column
