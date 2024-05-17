@@ -17,7 +17,7 @@ public class ArticleService {
 
     public FindAllArticleResponse find(FindArticleRequest request) {
 
-        List<Article> article = articleRepository.findAll();
+        List<Article> article = articleRepository.findByCityAndDistrict(request.city(), request.district());
 
         return FindAllArticleResponse.from(article);
     }
