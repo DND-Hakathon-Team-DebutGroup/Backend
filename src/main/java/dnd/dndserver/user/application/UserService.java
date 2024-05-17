@@ -1,9 +1,6 @@
 package dnd.dndserver.user.application;
 
-import dnd.dndserver.article.domain.Article;
-import dnd.dndserver.article.dto.request.FindArticleRequest;
-import dnd.dndserver.article.dto.response.FindAllArticleResponse;
-import dnd.dndserver.article.repository.ArticleRepository;
+
 import dnd.dndserver.file.FileStore;
 import dnd.dndserver.file.ImageFile;
 import dnd.dndserver.user.User;
@@ -11,13 +8,13 @@ import dnd.dndserver.user.application.repository.UserRepository;
 import dnd.dndserver.user.dto.UserJoinDto;
 import dnd.dndserver.user.dto.UserLoginRequest;
 import dnd.dndserver.user.dto.UserLoginResponse;
-import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
