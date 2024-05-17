@@ -9,6 +9,7 @@ public record SaveArticleRequest(
         int temperature,
         int precipitation,
         int sunshine,
-        String content
+        String content,
+        String nowTemp
 ) {
 }
