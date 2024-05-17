@@ -21,4 +21,14 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
             String district,
             String town
     );
+
+    @Query("""
+            SELECT a
+            FROM Article a
+            LEFT JOIN FETCH a.imageFile
+            WHERE a.user.uuid = :uuid                      
+            """)
+    List<Article> findByUuid(
+            String uuid
+    );
 }

@@ -1,5 +1,6 @@
 package dnd.dndserver.user;
 
+import dnd.dndserver.article.domain.Article;
 import dnd.dndserver.file.ImageFile;
 import dnd.dndserver.global.entity.BaseTimeEntity;
 import dnd.dndserver.user.dto.UserJoinDto;
@@ -11,8 +12,11 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -37,6 +41,9 @@ public class User extends BaseTimeEntity {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "file_id")
     private ImageFile imageFile;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Article> articles = new ArrayList<>();
 
     private User(UserJoinDto userJoinDto) {
         this.uuid = UUID.randomUUID().toString();
