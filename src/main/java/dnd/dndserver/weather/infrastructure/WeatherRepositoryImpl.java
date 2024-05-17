@@ -45,13 +45,13 @@ public class WeatherRepositoryImpl implements WeatherRepository {
         double rnNum = Double.parseDouble(rn);
 
         if (rnNum < 0) {
-            timeWeatherDTO.setWeather("맑음");
+            timeWeatherDTO.setWeather("맑아요");
         }
         if (0 <= rnNum && rnNum <= 3) {
-            timeWeatherDTO.setWeather("흐림");
+            timeWeatherDTO.setWeather("흐려요");
         }
         if (3 < rnNum) {
-            timeWeatherDTO.setWeather("비");
+            timeWeatherDTO.setWeather("비가와요");
         }
 
         timeWeatherDTO.setNowTemp(nowTemperature);
