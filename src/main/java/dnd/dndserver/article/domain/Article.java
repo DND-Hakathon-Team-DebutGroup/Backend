@@ -1,17 +1,15 @@
 package dnd.dndserver.article.domain;
 
+import dnd.dndserver.article.dto.request.SaveArticleRequest;
 import dnd.dndserver.file.ImageFile;
 import dnd.dndserver.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Article extends BaseTimeEntity {
 
@@ -33,10 +31,20 @@ public class Article extends BaseTimeEntity {
     @Column
     private String content;
     @Column
-    private String message;
-    @Column
     private int heart;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "file_id")
     private ImageFile imageFile;
+
+    public Article(SaveArticleRequest request, ImageFile file) {
+        this.city = request.city();
+        this.district = request.district();
+        this.town = request.town();
+        this.temperature = request.temperature();
+        this.precipitation = request.precipitation();
+        this.sunshine = request.sunshine();
+        this.content = request.content();
+        this.heart = 0;
+        this.imageFile = file;
+    }
 }

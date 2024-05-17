@@ -1,19 +1,20 @@
 package dnd.dndserver.file;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class FileStore {
 
     //    @Value("${file.dir}")
-    private String fileDir = "/Users/kimjuchan/Desktop/Hanbat_Market/src/main/resources/static/files/";
+    private final String fileDir = "";
 
     public String getFullPath(String filename) {
         return fileDir + filename;
