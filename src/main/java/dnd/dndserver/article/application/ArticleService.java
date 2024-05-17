@@ -8,6 +8,7 @@ import dnd.dndserver.article.dto.response.FindArticleResponse;
 import dnd.dndserver.article.dto.response.SaveArticleResponse;
 import dnd.dndserver.article.infrastructure.ArticleRepository;
 import dnd.dndserver.file.FileStore;
+import dnd.dndserver.file.ImageFile;
 import dnd.dndserver.user.User;
 import dnd.dndserver.user.application.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -54,9 +55,11 @@ public class ArticleService {
     }
 
     @Transactional
-    public SaveArticleResponse save(SaveArticleRequest request, MultipartFile file) throws IOException {
+    public SaveArticleResponse save(SaveArticleRequest request) throws IOException {
         User user = userRepository.findByUuid(request.userUUID());
-        articleRepository.save(Article.create(request, fileStore.storeFile(file), user));
+        articleRepository.save(Article.create(request,
+                new ImageFile(request.fileName(), request.fileName()),
+                user));
         return new SaveArticleResponse(user.getNickName(), request.content());
     }
 }
