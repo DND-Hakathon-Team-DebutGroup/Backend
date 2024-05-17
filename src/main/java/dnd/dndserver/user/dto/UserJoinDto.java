@@ -16,5 +16,5 @@ public class UserJoinDto {
 
     String uuid;
 
-    ImageFile imageFile;
+    String profileImageUrl;
 }

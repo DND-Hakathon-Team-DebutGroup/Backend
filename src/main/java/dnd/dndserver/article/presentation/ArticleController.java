@@ -4,6 +4,7 @@ import dnd.dndserver.article.application.ArticleService;
 import dnd.dndserver.article.dto.request.FindArticleRequest;
 import dnd.dndserver.article.dto.request.SaveArticleRequest;
 import dnd.dndserver.article.dto.response.FindAllArticleResponse;
+import dnd.dndserver.article.dto.response.SaveArticleResponse;
 import dnd.dndserver.global.handler.ResponseHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,14 +34,14 @@ public class ArticleController {
     }
 
     @PostMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<ResponseHandler<Void>> save(
+    public ResponseEntity<ResponseHandler<SaveArticleResponse>> save(
             @RequestPart("request") SaveArticleRequest request,
             @RequestPart("file") MultipartFile file
     ) throws IOException {
-        articleService.save(request, file);
         return ResponseEntity.ok()
-                .body(ResponseHandler.<Void>builder()
-                        .statusCode(HttpStatus.NO_CONTENT)
+                .body(ResponseHandler.<SaveArticleResponse>builder()
+                        .statusCode(HttpStatus.OK)
+                        .data(articleService.save(request, file))
                         .build()
                 );
     }

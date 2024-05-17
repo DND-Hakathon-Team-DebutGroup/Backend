@@ -5,10 +5,10 @@ import dnd.dndserver.article.domain.Article;
 import java.util.List;
 
 public record FindAllArticleResponse(
-        List<Article> articles
+        List<FindArticleResponse> articles
 ) {
 
-    public static FindAllArticleResponse from(List<Article> articles) {
+    public static FindAllArticleResponse from(List<FindArticleResponse> articles) {
         return new FindAllArticleResponse(articles);
     }
 }
