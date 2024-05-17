@@ -1,26 +1,24 @@
 package dnd.dndserver.user.application;
 
+
 import dnd.dndserver.article.domain.Article;
-import dnd.dndserver.article.dto.request.FindArticleRequest;
-import dnd.dndserver.article.dto.response.FindAllArticleResponse;
 import dnd.dndserver.article.dto.response.FindArticleResponse;
 import dnd.dndserver.article.infrastructure.ArticleRepository;
 import dnd.dndserver.file.FileStore;
-import dnd.dndserver.file.ImageFile;
 import dnd.dndserver.user.User;
 import dnd.dndserver.user.application.repository.UserRepository;
 import dnd.dndserver.user.dto.UserJoinDto;
 import dnd.dndserver.user.dto.UserLoginRequest;
 import dnd.dndserver.user.dto.UserLoginResponse;
 import dnd.dndserver.user.dto.UserMyPageResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -72,6 +70,7 @@ public class UserService {
                         article.getSunshine(),
                         article.getContent(),
                         article.getHeart(),
+                        article.getNowTemp(),
                         article.getUser().getNickName(), // 예를 들어, Article 엔티티가 User 엔티티와 연관관계를 가지고 있다고 가정
                         article.getImageFile().getStoreFileName()
                 ))

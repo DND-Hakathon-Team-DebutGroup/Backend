@@ -9,9 +9,7 @@ import dnd.dndserver.article.dto.response.SaveArticleResponse;
 import dnd.dndserver.article.infrastructure.ArticleRepository;
 import dnd.dndserver.file.FileStore;
 import dnd.dndserver.user.User;
-import dnd.dndserver.user.application.UserService;
 import dnd.dndserver.user.application.repository.UserRepository;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +44,7 @@ public class ArticleService {
                         article.getSunshine(),
                         article.getContent(),
                         article.getHeart(),
+                        article.getNowTemp(),
                         article.getUser().getNickName(), // 예를 들어, Article 엔티티가 User 엔티티와 연관관계를 가지고 있다고 가정
                         article.getImageFile().getStoreFileName()
                 ))
