@@ -38,9 +38,7 @@ public class User extends BaseTimeEntity {
 
     private String uuid;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "file_id")
-    private ImageFile imageFile;
+    private String profileImageUrl;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Article> articles = new ArrayList<>();
@@ -48,8 +46,7 @@ public class User extends BaseTimeEntity {
     private User(UserJoinDto userJoinDto) {
         this.uuid = UUID.randomUUID().toString();
         this.nickName = userJoinDto.getNickName();
-        this.imageFile = userJoinDto.getImageFile();
-        userJoinDto.getImageFile().setUser(this);
+        this.profileImageUrl = userJoinDto.getProfileImageUrl();
     }
 
     public static User create(UserJoinDto userJoinDto) {

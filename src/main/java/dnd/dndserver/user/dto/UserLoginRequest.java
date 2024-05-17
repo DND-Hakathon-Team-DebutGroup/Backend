@@ -15,6 +15,5 @@ public class UserLoginRequest {
 
     String nickName;
 
-    @Hidden
-    private MultipartFile imageFile;
+    String profileImageUrl;
 }

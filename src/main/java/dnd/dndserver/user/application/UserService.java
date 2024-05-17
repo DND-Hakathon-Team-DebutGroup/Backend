@@ -38,18 +38,10 @@ public class UserService {
     @Transactional
     public UserLoginResponse login(UserLoginRequest request) throws IOException {
 
-        MultipartFile multipartFile = request.getImageFile();
-
-        if (multipartFile == null) {
-            throw new RuntimeException();
-        }
-
-        ImageFile imageFile = fileStore.storeFile(multipartFile);
-
         User user = User.create(new UserJoinDto(
                 request.getNickName(),
                 UUID.randomUUID().toString(),
-                imageFile
+                request.getProfileImageUrl()
         ));
 
         userRepository.save(user);
@@ -58,7 +50,8 @@ public class UserService {
 
         return new UserLoginResponse(
                 request.getNickName(),
-                uuid
+                uuid,
+                request.getProfileImageUrl()
         );
     }
 
@@ -85,7 +78,7 @@ public class UserService {
                 .collect(Collectors.toList());
 
         return UserMyPageResponse.from(user.getNickName(),
-                user.getImageFile().getStoreFileName(), articleResponses);
+                user.getProfileImageUrl(), articleResponses);
     }
 
 }
