@@ -1,4 +1,4 @@
-package dnd.dndserver.article.repository;
+package dnd.dndserver.article.infrastructure;
 
 import dnd.dndserver.article.domain.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +14,11 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
             LEFT JOIN FETCH a.imageFile
             WHERE a.city = :city
             AND a.district = :district
-            """
-    )
-    List<Article> findByCityAndDistrict(String city, String district);
+            AND a.town = :town
+            """)
+    List<Article> findByCityAndDistrict(
+            String city,
+            String district,
+            String town
+    );
 }
