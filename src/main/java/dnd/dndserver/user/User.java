@@ -2,6 +2,9 @@ package dnd.dndserver.user;
 
 import dnd.dndserver.file.ImageFile;
 import dnd.dndserver.global.entity.BaseTimeEntity;
+import dnd.dndserver.user.dto.UserJoinDto;
+import dnd.dndserver.user.dto.UserLoginRequest;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +34,19 @@ public class User extends BaseTimeEntity {
 
     private String uuid;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "file_id")
     private ImageFile imageFile;
+
+    private User(UserJoinDto userJoinDto) {
+        this.uuid = UUID.randomUUID().toString();
+        this.nickName = userJoinDto.getNickName();
+        this.imageFile = userJoinDto.getImageFile();
+        userJoinDto.getImageFile().setUser(this);
+    }
+
+    public static User create(UserJoinDto userJoinDto) {
+        User user = new User(userJoinDto);
+        return user;
+    }
 }
