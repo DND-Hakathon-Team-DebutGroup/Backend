@@ -1,6 +1,7 @@
 package dnd.dndserver.article.application;
 
 import dnd.dndserver.article.domain.Article;
+import dnd.dndserver.article.dto.AvgDTO;
 import dnd.dndserver.article.dto.request.FindArticleRequest;
 import dnd.dndserver.article.dto.request.SaveArticleRequest;
 import dnd.dndserver.article.dto.response.FindAllArticleResponse;
@@ -18,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,27 +31,28 @@ public class ArticleService {
     @Transactional(readOnly = true)
     public FindAllArticleResponse find(FindArticleRequest request) {
 
-        List<Article> articles = articleRepository.findByCityAndDistrict(request.city(), request.district(),
-                request.town());
+        List<Article> articles = articleRepository.findByCityAndDistrictAndTown(request.city(), request.district(), request.town());
 
-        List<FindArticleResponse> articleResponses = articles.stream()
-                .map(article -> new FindArticleResponse(
-                        article.getId(),
-                        article.getCity(),
-                        article.getDistrict(),
-                        article.getTown(),
-                        article.getTemperature(),
-                        article.getPrecipitation(),
-                        article.getSunshine(),
-                        article.getContent(),
-                        article.getHeart(),
-                        article.getUser().getNickName(), // 예를 들어, Article 엔티티가 User 엔티티와 연관관계를 가지고 있다고 가정
-                        article.getImageFile().getStoreFileName(),
-                        article.getNowTemp()
-                ))
-                .collect(Collectors.toList());
+        return FindAllArticleResponse.of(
+                getAvg(articles),
+                articles.stream()
+                        .map(FindArticleResponse::new)
+                        .toList()
+        );
+    }
 
-        return FindAllArticleResponse.from(articleResponses);
+    private AvgDTO getAvg(List<Article> articles) {
+        int tempSum = 0;
+        int preSum = 0;
+        int sunSum = 0;
+
+        for (Article article : articles) {
+            tempSum += article.getTemperature();
+            preSum += article.getPrecipitation();
+            sunSum += article.getSunshine();
+        }
+
+        return new AvgDTO(tempSum, preSum, sunSum);
     }
 
     @Transactional

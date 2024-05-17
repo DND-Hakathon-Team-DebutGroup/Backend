@@ -1,5 +1,6 @@
 package dnd.dndserver.article.dto.response;
 
+import dnd.dndserver.article.domain.Article;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -30,4 +31,19 @@ public class FindArticleResponse {
     private String fileName;
 
     private String nowTemp;
+
+    public FindArticleResponse(Article article) {
+        this.id = article.getId();
+        this.city = article.getCity();
+        this.district = article.getDistrict();
+        this.town = article.getTown();
+        this.temperature = article.getTemperature();
+        this.precipitation = article.getPrecipitation();
+        this.sunshine = article.getSunshine();
+        this.content = article.getContent();
+        this.heart = article.getHeart();
+        this.user = article.getUser().getNickName();
+        this.fileName = article.getImageFile().getStoreFileName();
+        this.nowTemp = article.getNowTemp();
+    }
 }

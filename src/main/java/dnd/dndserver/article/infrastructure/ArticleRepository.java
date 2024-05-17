@@ -16,7 +16,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
             AND a.district = :district
             AND a.town = :town
             """)
-    List<Article> findByCityAndDistrict(
+    List<Article> findByCityAndDistrictAndTown(
             String city,
             String district,
             String town
