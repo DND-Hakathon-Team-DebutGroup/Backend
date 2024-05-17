@@ -4,8 +4,14 @@ import dnd.dndserver.article.domain.Article;
 import dnd.dndserver.article.dto.request.FindArticleRequest;
 import dnd.dndserver.article.dto.request.SaveArticleRequest;
 import dnd.dndserver.article.dto.response.FindAllArticleResponse;
+import dnd.dndserver.article.dto.response.FindArticleResponse;
+import dnd.dndserver.article.dto.response.SaveArticleResponse;
 import dnd.dndserver.article.infrastructure.ArticleRepository;
 import dnd.dndserver.file.FileStore;
+import dnd.dndserver.user.User;
+import dnd.dndserver.user.application.UserService;
+import dnd.dndserver.user.application.repository.UserRepository;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,18 +26,37 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
     private final FileStore fileStore;
+    private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
     public FindAllArticleResponse find(FindArticleRequest request) {
 
-        List<Article> article = articleRepository.findByCityAndDistrict(request.city(), request.district(), request.town());
+        List<Article> articles = articleRepository.findByCityAndDistrict(request.city(), request.district(),
+                request.town());
 
-        return FindAllArticleResponse.from(article);
+        List<FindArticleResponse> articleResponses = articles.stream()
+                .map(article -> new FindArticleResponse(
+                        article.getId(),
+                        article.getCity(),
+                        article.getDistrict(),
+                        article.getTown(),
+                        article.getTemperature(),
+                        article.getPrecipitation(),
+                        article.getSunshine(),
+                        article.getContent(),
+                        article.getHeart(),
+                        article.getUser().getNickName(), // 예를 들어, Article 엔티티가 User 엔티티와 연관관계를 가지고 있다고 가정
+                        article.getImageFile().getStoreFileName()
+                ))
+                .collect(Collectors.toList());
+
+        return FindAllArticleResponse.from(articleResponses);
     }
 
     @Transactional
-    public void save(SaveArticleRequest request, MultipartFile file) throws IOException {
-
-        articleRepository.save(new Article(request, fileStore.storeFile(file)));
+    public SaveArticleResponse save(SaveArticleRequest request, MultipartFile file) throws IOException {
+        User user = userRepository.findByUuid(request.userUUID());
+        articleRepository.save(Article.create(request, fileStore.storeFile(file), user));
+        return new SaveArticleResponse(user.getNickName(), request.content());
     }
 }
