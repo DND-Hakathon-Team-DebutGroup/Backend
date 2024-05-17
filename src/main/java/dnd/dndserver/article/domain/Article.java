@@ -1,6 +1,7 @@
 package dnd.dndserver.article.domain;
 
 import dnd.dndserver.global.entity.BaseTimeEntity;
+import dnd.dndserver.user.ImageFile;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,23 +17,24 @@ public class Article extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     @Column
-    String fileName;
+    private String city;
     @Column
-    String city;
+    private String district;
     @Column
-    String district;
+    private String temperature;
     @Column
-    String temperature;
+    private String wind;
     @Column
-    String wind;
+    private String humidity;
     @Column
-    String humidity;
+    private String content;
     @Column
-    String content;
+    private String message;
     @Column
-    String message;
-    @Column
-    int like;
+    private int heart;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "file_id")
+    private ImageFile imageFile;
 }
