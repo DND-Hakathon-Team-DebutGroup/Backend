@@ -1,6 +1,5 @@
 package dnd.dndserver.file;
 
-import dnd.dndserver.user.ImageFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,5 +1,7 @@
-package dnd.dndserver.user;
+package dnd.dndserver.file;
 
+import dnd.dndserver.global.entity.BaseTimeEntity;
+import dnd.dndserver.user.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ImageFile {
+public class ImageFile extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
