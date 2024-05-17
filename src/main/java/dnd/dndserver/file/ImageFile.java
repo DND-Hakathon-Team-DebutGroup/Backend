@@ -22,17 +22,10 @@ public class ImageFile extends BaseTimeEntity {
     private String storeFileName;
 
     @OneToOne(mappedBy = "imageFile", cascade = CascadeType.ALL)
-    private User user;
-
-    @OneToOne(mappedBy = "imageFile", cascade = CascadeType.ALL)
     private Article article;
 
     public ImageFile(String uploadFileName, String storeFileName) {
         this.uploadFileName = uploadFileName;
         this.storeFileName = storeFileName;
-    }
-
-    public void setUser(User user){
-        this.user = user;
     }
 }

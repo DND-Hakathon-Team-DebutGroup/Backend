@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,11 +30,8 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<ResponseHandler<UserLoginResponse>> login(
-            @RequestPart UserLoginRequest request,
-            @RequestPart MultipartFile imageFile
+            @RequestBody UserLoginRequest request
     ) throws IOException {
-
-        request.setImageFile(imageFile);
 
         return ResponseEntity.ok()
                 .body(ResponseHandler.<UserLoginResponse>builder()
