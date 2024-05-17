@@ -44,9 +44,9 @@ public class ArticleService {
                         article.getSunshine(),
                         article.getContent(),
                         article.getHeart(),
-                        article.getNowTemp(),
                         article.getUser().getNickName(), // 예를 들어, Article 엔티티가 User 엔티티와 연관관계를 가지고 있다고 가정
-                        article.getImageFile().getStoreFileName()
+                        article.getImageFile().getStoreFileName(),
+                        article.getNowTemp()
                 ))
                 .collect(Collectors.toList());
 
