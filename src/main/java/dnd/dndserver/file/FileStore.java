@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileStore {
 
     //    @Value("${file.dir}")
-    private String fileDir = "/Users/kimjuchan/Desktop/Hanbat_Market/src/main/resources/static/files/";
+    private String fileDir = "/Users/kimjuchan/Desktop/dnd-server/src/main/resources/static/files/";
 
     public String getFullPath(String filename) {
         return fileDir + filename;
