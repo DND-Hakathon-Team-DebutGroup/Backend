@@ -31,4 +31,8 @@ public class ImageFile extends BaseTimeEntity {
         this.uploadFileName = uploadFileName;
         this.storeFileName = storeFileName;
     }
+
+    public void setUser(User user){
+        this.user = user;
+    }
 }

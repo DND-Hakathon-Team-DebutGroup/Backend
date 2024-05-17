@@ -14,6 +14,7 @@ import java.util.UUID;
 public class FileStore {
 
     //    @Value("${file.dir}")
+  
     private final String fileDir = "";
 
     public String getFullPath(String filename) {
